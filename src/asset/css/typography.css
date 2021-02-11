@@ -51,6 +51,10 @@
   color: #FFFFFF !important;
 }
 
+.txt-muted {
+  color: #C2C9CF !important;
+}
+
 .txt-camel {
   text-transform: capitalize !important;
 }
@@ -88,4 +92,16 @@
   font-size: 16px !important;
   letter-spacing: 0.4px;
   font-weight: 300;
+}
+
+.txts-paging {
+  background-color: #FFFFFF00;
+  font-weight: 500;
+  color: #22262A;
+}
+
+.txts-paging-active {
+  background-color: #22262A !important;
+  font-weight: 500;
+  color: #FFFFFF !important;
 }

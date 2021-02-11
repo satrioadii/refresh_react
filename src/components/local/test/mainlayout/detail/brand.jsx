@@ -1,44 +1,35 @@
-import { CardActions } from '@material-ui/core';
 import React, { Fragment, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import Accesories from '../../../../../resources/accesories';
+import Brand from '../../../../../resources/brand';
 import Spacer from '../../../../global/space';
 
-const TestMainLayoutDetailAccesories = () => {
+const TestMainLayoutDetailBrand = () => {
     
-    const dispatch = useDispatch();
-
-    const localSelect = localStorage.getItem('accesories'); 
+    const localSelect = localStorage.getItem('brand'); 
 
     const [state, setState] = useState({
-        selected: localSelect ? localSelect : Accesories.list[0].value
+        selected: localSelect ? localSelect : Brand.list[0].value
     });
 
-    const handleClick = (item) => {
-        setState({...state, selected: item.value});
-        localStorage.setItem('accesories', item.value);
-
-        dispatch({
-            type: 'CHANGE_SUBSUBMENU',
-            value: item.label
-        })
+    const handleClick = (val) => {
+        setState({...state, selected: val});
+        localStorage.setItem('brand', val);
     };
     
     return (
         <Fragment>
             <div style={styles.wrapper}>
-                <p className="default txts-detail-header">ACCESORIES</p>
+                <p className="default txts-detail-header">BRAND</p>
                 <Spacer b={18}/>
                 {
                     /**
-                     * Render accesories
+                     * Render brand
                      */
 
-                    Accesories.list.map((item, index) => {
+                    Brand.list.map((item, index) => {
                         return (
-                            <Fragment key={`accesories_${item.value}_${index}`}>
+                            <Fragment key={`brand_${item.value}_${index}`}>
                                 <div style={{paddingTop: '12px', paddingBottom: '12px'}}>
-                                    <div className={`csr-pointer default txt-semibold`} style={{display: 'flex'}} onClick={() => handleClick(item)}>
+                                    <div className={`csr-pointer default txt-semibold`} style={{display: 'flex'}} onClick={() => handleClick(item.value)}>
                                         <p className={`default ${item.value === state.selected ? 'txt-active' : ''}`} style={{flex: 1}}>
                                             {item.label}
                                         </p>
@@ -67,4 +58,4 @@ const styles = {
     }
 };
 
-export default TestMainLayoutDetailAccesories;
+export default TestMainLayoutDetailBrand;

@@ -3,7 +3,7 @@ import Spacer from '../components/global/space';
 import TestBreadCrumb from '../components/local/test/breadcrumb';
 import TestHeader from '../components/local/test/header';
 import TestMainLayout from '../components/local/test/mainlayout';
-import GlobalNavbar from '../components/local/test/navbar';
+import GlobalNavbar from '../components/global/navbar/index';
 
 const Index = () => {
     return (

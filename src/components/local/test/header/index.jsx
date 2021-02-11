@@ -1,4 +1,6 @@
 import React, { Fragment, useState } from 'react';
+import { useDispatch } from 'react-redux';
+
 import GlobalContainer from '../../../global/container';
 
 import logosvg from "../../../../asset/images/logo.svg"
@@ -7,21 +9,27 @@ import MenuNavigation from '../../../../resources/menunavigation';
 
 const TestHeader = () => {
 
+    const dispatch = useDispatch();
+
     const localSelected = localStorage.getItem('navigation');
 
     const [state, setState] = useState({
         selected: localSelected ? localSelected : MenuNavigation.list[0].value
     });
 
-    const handleClick = (val) => {
-        setState({...state, selected: val});
-        localStorage.setItem('navigation', val);
+    const handleClick = (list) => {
+        setState({...state, selected: list.value});
+        localStorage.setItem('navigation', list.value);
+        dispatch({
+            type: 'CHANGE_SUBMENU',
+            value: list.label
+        });
     };
 
     return (
         <Fragment>
             <GlobalContainer>
-                <div style={styles.wrapper}>
+                <div className='flex justify-center'>
                     <img src={logosvg}/>
                 </div>
                 <Spacer b={34}/>
@@ -34,9 +42,9 @@ const TestHeader = () => {
 
                         MenuNavigation.list.map((list, index) => {
                             return (
-                                <span style={state.selected === list.value ? styles.active : undefined}>
+                                <span key={`menunavigation_${index}`} style={state.selected === list.value ? styles.active : undefined}>
                                     <p className="default" style={{paddingRight: '24px', paddingLeft: '24px', paddingTop: '16px'}} >
-                                        <span className='csr-pointer' onClick={() => handleClick(list.value)} style={{fontWeight: 500}}>{list.label}</span>
+                                        <span className='csr-pointer' onClick={() => handleClick(list)} style={{fontWeight: 500}}>{list.label}</span>
                                     </p>
                                 </span>
                             )
@@ -50,7 +58,8 @@ const TestHeader = () => {
 
 const styles = {
     wrapper: {
-        textAlign: 'center'
+        display: 'flex',
+        justtifyContent: 'center'
     },
     active: {
         color: '#33A0FF'

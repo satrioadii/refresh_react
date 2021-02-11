@@ -1,13 +1,21 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+
 import GlobalContainer from '../../../global/container';
 import GlobalSnackbar from '../../../global/snackbar';
 
 const TestBreadCrumb = () => {
+
+    const selector = useSelector(state => state);
     
     const [state, setState] = useState({
-        path: ['home', 'accessories', 'Air Port & Wireless'],
+        path: ['home', selector.submenu, selector.subsubmenu],
         isOpen: false
     });
+
+    useEffect(() => {
+        setState({...state, path: ['home', selector.submenu, selector.subsubmenu]})
+    }, [selector])
 
     const deviderGenerator = () => {
         return (
@@ -42,7 +50,7 @@ const TestBreadCrumb = () => {
                                 };
 
                                 return (
-                                    <Fragment>
+                                    <Fragment key={`breadcrumb_${index}`}>
                                         {index > 0 ? devider : ''}
                                         <p 
                                             className={`default txt-camel ${index < state.path.length-1 ? 'csr-pointer txt-active' : null}`} 

@@ -1,19 +1,19 @@
 import React, { Fragment, useState } from 'react';
 import { Button, Menu, MenuItem } from '@material-ui/core';
-import Currency from '../../../../resources/currency';
+import Language from '../../../resources/lang/index';
 
-const SelectorCurrency = () => {
+const SelectorLang = () => {
 
     /**
-     * Get latest config of selected currency
+     * Get latest config of selected language
      */
     
-    const localCurrency = localStorage.getItem('currency');
+    const localLanguage = localStorage.getItem('lang');
 
     const [state, setState] = useState({
         isOpen: false,
         selectedComponent: undefined,
-        localString: localCurrency ? localCurrency : Currency.list[0].value
+        localLang: localLanguage ? localLanguage : Language.list[0].value
     });
 
     const handleClick = (e) => {
@@ -28,7 +28,7 @@ const SelectorCurrency = () => {
 
         /**
          * Check action based on type,
-         * if close-only => not update the currency data
+         * if close-only => not update the lang data
          */
         
         if (type === 'close-only') {
@@ -39,20 +39,20 @@ const SelectorCurrency = () => {
         setState({
             ...state, 
             isOpen: false,
-            localString: e.target.dataset.value
+            localLang: e.target.dataset.value
         });
         
         /**
-         * Save selected currency
+         * Save selected language
          */
 
-        localStorage.setItem('currency', e.target.dataset.value);
+        localStorage.setItem('lang', e.target.dataset.value);
     };
 
     return (
         <Fragment>
             <p className="default csr-pointer" onClick={handleClick}>
-                <span style={{marginRight: '10px'}}>{state.localString}</span> 
+                <span style={{marginRight: '10px'}}>{state.localLang}</span> 
                 <span style={{fontSize: '10px', verticalAlign: 'middle'}}>&#9660;</span>
             </p>
             <Menu
@@ -64,10 +64,10 @@ const SelectorCurrency = () => {
             >
                 {
                     /**
-                     * Render the Currency list
+                     * Render the language list
                      */
 
-                    Currency.list.map((lang, index) => 
+                    Language.list.map((lang, index) => 
                         <MenuItem key={`${lang.value}_index`} data-value={lang.value} onClick={(e) => handleClose(e, 'update')}>{lang.label}</MenuItem>
                     )
                 }
@@ -76,4 +76,4 @@ const SelectorCurrency = () => {
     );
 };
 
-export default SelectorCurrency;
+export default SelectorLang;
