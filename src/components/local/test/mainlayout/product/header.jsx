@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Spacer from '../../../../global/space';
 import HeaderImage from '../../../../../asset/images/header_1@2x.png';
+import HeaderImageSm from '../../../../../asset/images/iphone_se.png';
 import GlobalSnackbar from '../../../../global/snackbar';
 
 const TestMainLayoutProductHeader = () => {
@@ -20,14 +21,18 @@ const TestMainLayoutProductHeader = () => {
     return (
         <div style={styles.wrapper}>
             <div style={styles.leftcontent}>
+                <div className='md:hidden block'>
+                    <img src={HeaderImageSm} style={{width: '100%', height: '100%'}}/>
+                </div>
                 <h1 className='default txts-header-product txt-light'>iPhone SE</h1>
                 <Spacer b={21}/>
-                <p className='default txts-subheader-product txt-light' style={styles.subheader}>Performance and design. Taken right to the edge.</p>
+                <p className='default txts-subheader-product txt-light md:block hidden' style={styles.subheader}>Performance and design. Taken right to the edge.</p>
+                <p className='default txts-subheader-product txt-light md:hidden block' >Performance and design. Taken right to the edge.</p>
                 <Spacer b={20}/>
                 <span className="txt-light csr-pointer" style={styles.ctabutton} onClick={() => handleClick()}>SHOP NOW</span>
                 <Spacer b={28}/>
             </div>
-            <div style={styles.rightcontent}>
+            <div className='md:block hidden' style={styles.rightcontent}>
                 <img src={HeaderImage} style={{width: '100%', height: '100%'}}/>
             </div>
 

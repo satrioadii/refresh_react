@@ -1,16 +1,32 @@
-import React, { Fragment } from 'react';
-import GlobalContainer from '../../../global/container';
-import Spacer from '../../../global/space';
+import React, { Fragment, useState } from 'react';
+import GlobalContainer from '../container';
+import Spacer from '../space';
 import SelectorCurrency from './selectorcurrency';
 import SelectorLang from './selectorlang';
 import Icon from '@material-ui/core/Icon';
+import GlobalDrawer from './drawer';
+import logosvg from "../../../asset/images/logo.svg"
+
 
 const GlobalNavbar = () => {
+
+	const [state, setState] = React.useState({
+		isOpen: false
+	});
+
+	const openDrawer = () => {
+		setState({...state, isOpen: true});
+	};
+
+	const closeDrawer = () => {
+		setState({...state, isOpen: false});
+	};
+
 	return (
 		<Fragment>
 			<div style={styles.navbarWrap}>
 				<GlobalContainer>
-					<div style={{display: 'flex'}}>
+					<div className='md:flex hidden'>
 						<div>
 							<SelectorLang />
 						</div>
@@ -39,15 +55,20 @@ const GlobalNavbar = () => {
 							<Icon>search</Icon>
 						</div>
 					</div>
+					<div className='md:hidden flex justify-between items-center'>
+						<a href='#'><img src={logosvg} style={{height: '20px'}}/></a>
+						<Icon className='csr-pointer' style={styles.burger} onClick={() => openDrawer()}>menu</Icon>
+					</div>
 				</GlobalContainer>
 			</div>
+			<GlobalDrawer open={state.isOpen} onClose={closeDrawer} onOpen={openDrawer}/>
 		</Fragment>
 	);
 };
 
 const styles = {
 	navbarWrap: {
-		boxShadow: '-2px 4px 4px 0px #FAFAFB',
+		boxShadow: '-2px 2px 2px 0px #FAFAFB',
 		background: '#FFFFFF',
 		paddingTop: '16px',
 		paddingBottom: '16px',
@@ -68,6 +89,9 @@ const styles = {
 	},
 	semiTransparent: {
 		opacity: 0.5
+	},
+	burger: {
+		color: '#222222'
 	}
 };
 
